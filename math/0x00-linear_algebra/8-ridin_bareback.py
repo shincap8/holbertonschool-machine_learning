@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-
 matrix_shape = __import__('2-size_me_please').matrix_shape
+
 
 def mat_mul(mat1, mat2):
     if matrix_shape(mat1)[1] != matrix_shape(mat2)[0]:
@@ -18,5 +18,3 @@ def mat_mul(mat1, mat2):
                 x += mat1[i][k] * mat2[k][j]
             mul[i].append(x)
     return mul
-
-
