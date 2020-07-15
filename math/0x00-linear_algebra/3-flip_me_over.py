@@ -3,6 +3,7 @@
 
 
 def matrix_transpose(matrix):
+    """Function to return the shape of the matrix"""
     matrixT = []
     start = True
     for row in matrix:

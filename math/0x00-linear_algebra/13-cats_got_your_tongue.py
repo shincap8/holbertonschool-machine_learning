@@ -6,4 +6,5 @@ import numpy as np
 
 
 def np_cat(mat1, mat2, axis=0):
+    """Function to return two nmatrices concatenated"""
     return np.concatenate((mat1, mat2), axis=axis)

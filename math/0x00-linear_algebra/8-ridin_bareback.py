@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Function to return two multiply concatenated"""
+"""Function to return two multiply matrices"""
 
 
 matrix_shape = __import__('2-size_me_please').matrix_shape
 
 
 def mat_mul(mat1, mat2):
+    """Function to return two multiply matrices"""
     if matrix_shape(mat1)[1] != matrix_shape(mat2)[0]:
         return None
     mul = []

@@ -7,6 +7,7 @@ cat_arrays = __import__('6-howdy_partner').cat_arrays
 
 
 def cat_matrices2D(mat1, mat2, axis=0):
+    """Function to return two matrices concatenated"""
     if axis == 0:
         if matrix_shape(mat1)[1] != matrix_shape(mat2)[1]:
             return None

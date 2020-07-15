@@ -3,4 +3,5 @@
 
 
 def np_shape(matrix):
+    """Function to return the shape pf a nmatrix"""
     return matrix.shape
