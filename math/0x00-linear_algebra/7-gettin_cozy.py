@@ -8,7 +8,7 @@ cat_arrays = __import__('6-howdy_partner').cat_arrays
 def cat_matrices2D(mat1, mat2, axis=0):
     """Function to return two matrices concatenated"""
     if axis == 0:
-        if len(mat1[1]) != len(mat2[1]):
+        if len(mat1[0]) != len(mat2[0]):
             return None
         concat = []
         for i in mat1:
