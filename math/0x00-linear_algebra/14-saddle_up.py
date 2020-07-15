@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""Function to return two nmatrices multiplied"""
+
+
 import numpy as np
 
 

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""Function to return two multiply concatenated"""
+
+
 matrix_shape = __import__('2-size_me_please').matrix_shape
 
 

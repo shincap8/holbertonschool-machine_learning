@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""Function to return the shape of the matrix"""
+
+
 def matrix_transpose(matrix):
     matrixT = []
     start = True

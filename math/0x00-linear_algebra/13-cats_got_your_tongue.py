@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""Function to return two nmatrices concatenated"""
+
+
 import numpy as np
 
 
