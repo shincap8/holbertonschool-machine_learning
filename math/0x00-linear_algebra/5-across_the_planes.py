@@ -8,7 +8,7 @@ matrix_shape = __import__('2-size_me_please').matrix_shape
 def add_matrices2D(mat1, mat2):
     """Function to return the addition of two matrices"""
     add = []
-    if matrix_shape(mat1) != matrix_shape(mat2):
+    if matrix_shape(mat1)[0] != matrix_shape(mat2)[0] or matrix_shape(mat1)[1] != matrix_shape(mat2)[1]:
         return None
     for i in range(len(mat1)):
         add.append(list())
