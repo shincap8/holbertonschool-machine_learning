@@ -1,11 +1,18 @@
-# 0x11. Python - Network #1
+# 0x00. Linear Algebra
 
 ### General Objectives
 
-* How to fetch internet resources with the Python package urllib
-* How to decode urllib body response
-* How to use the Python package requests #requestsiswaysimplerthanurllib
-* How to make HTTP GET request
-* How to make HTTP POST/PUT/etc. request
-* How to fetch JSON resources
-* How to manipulate data from an external service
+* What is a vector?
+* What is a matrix?
+* What is a transpose?
+* What is the shape of a matrix?
+* What is an axis?
+* What is a slice?
+* How do you slice a vector/matrix?
+* What are element-wise operations?
+* How do you concatenate vectors/matrices?
+* What is the dot product?
+* What is matrix multiplication?
+* What is Numpy?
+* What is parallelization and why is it important?
+* What is broadcasting?
