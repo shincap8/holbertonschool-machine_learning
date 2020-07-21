@@ -11,7 +11,8 @@ colors = ['r', '#ffff00', '#ff8000', '#ffe5b4']
 y_offset = np.zeros(len(columns))
 
 for i in range(len(fruit)):
-    plt.bar(columns, fruit[i], width=0.5, color=colors[i], label=rows[i], bottom=y_offset)
+    plt.bar(columns, fruit[i], width=0.5, color=colors[i],
+            label=rows[i], bottom=y_offset)
     y_offset += fruit[i]
 
 plt.ylim(0, 80)

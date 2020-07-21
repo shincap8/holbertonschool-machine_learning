@@ -25,7 +25,7 @@ y32 = np.exp((r3 / t32) * x3)
 np.random.seed(5)
 student_grades = np.random.normal(68, 15, 50)
 
-fig = plt.figure(figsize=(10,6))
+fig = plt.figure(figsize=(10, 6))
 fig.suptitle("All in One")
 grid = plt.GridSpec(nrows=3, ncols=2, figure=fig, wspace=0.5, hspace=0.5)
 plt.subplot(grid[0, 0])
