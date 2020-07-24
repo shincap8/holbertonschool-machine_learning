@@ -4,9 +4,9 @@
 
 def poly_integral(poly, C=0):
     """function that calculates the integral of a polynomial"""
-    if poly is None or len(poly) == 0:
+    if poly is None or poly == [] or type(poly) != list:
         return None
-    if type(poly) is list and type(C) is int:
+    if type(C) is int:
         ans = [C]
         for i in range(len(poly)):
             if type(i) != int:
