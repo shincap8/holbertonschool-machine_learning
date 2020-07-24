@@ -20,5 +20,7 @@ def poly_integral(poly, C=0):
         for i in range(len(ans) - 1, 0, -1):
             if ans[i] == 0:
                 ans.pop()
+            else:
+                break
         return ans
     return None
