@@ -9,6 +9,8 @@ def poly_integral(poly, C=0):
     if type(C) is int or type(C) is float:
         if poly == [0]:
             return C
+        if C % 1 == 0:
+            C = int(C)
         ans = [C]
         for i in range(len(poly)):
             if type(poly[i]) != int and type(poly[i]) != float:
