@@ -17,7 +17,7 @@ class Binomial:
         else:
             if type(data) != list:
                 raise TypeError("data must be a list")
-            if len(data) < 2:
+            if len(data) <= 2:
                 raise ValueError("data must contain multiple values")
             mean = (sum(data)/len(data))
             dif = []
@@ -31,7 +31,7 @@ class Binomial:
 
     def pmf(self, k):
         """Calculates the value of the PMF for a given number of 'successes'"""
-        if k < 0:
+        if k <= 0:
             return 0
         factor1, factor2, factor3 = 1, 1, 1
         for i in range(1, (self.n + 1)):
