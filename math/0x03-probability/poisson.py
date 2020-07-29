@@ -8,12 +8,12 @@ class Poisson:
         """class constructor"""
         self.lambtha = float(lambtha)
         if data is None:
-            if lambtha < 0:
+            if lambtha <= 0:
                 raise ValueError("lambtha must be a positive value")
         else:
             if type(data) != list:
                 raise TypeError("data must be a list")
-            if len(data) < 2:
+            if len(data) <= 2:
                 raise ValueError("data must contain multiple values")
             self.lambtha = (sum(data)/len(data))
 
@@ -29,7 +29,7 @@ class Poisson:
 
     def cdf(self, k):
         """Calculates the value of the CDF for a given number of 'successes'"""
-        if k < 0:
+        if k <= self.n:
             return 0
         prob = 0
         for i in range(int(k)+1):
