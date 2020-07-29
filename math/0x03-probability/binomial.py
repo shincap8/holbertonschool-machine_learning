@@ -33,6 +33,7 @@ class Binomial:
         if k < 0:
             return 0
         if k <= self.n:
+            k = int(k)
             factor1, factor2, factor3 = 1, 1, 1
             for i in range(1, (self.n + 1)):
                 factor1 = factor1 * i
@@ -42,8 +43,7 @@ class Binomial:
                 factor3 = factor3 * l
             return ((factor1 / (factor2 * factor3)) * (self.p ** k) *
                     ((1 - self.p) ** (self.n - k)))
-        else:
-            return 0
+        return 0
 
     def cdf(self, k):
         """Calculates the value of the CDF for a given number of 'successes'"""
