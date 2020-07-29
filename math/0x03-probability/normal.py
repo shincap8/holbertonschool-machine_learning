@@ -9,12 +9,12 @@ class Normal:
         self.stddev = float(stddev)
         self.mean = float(mean)
         if data is None:
-            if stddev < 0:
+            if stddev <= 0:
                 raise ValueError("stddev must be a positive value")
         else:
             if type(data) != list:
                 raise TypeError("data must be a list")
-            if len(data) < 2:
+            if len(data) <= 2:
                 raise ValueError("data must contain multiple values")
             self.mean = ((sum(data)/len(data)))
             datai = []
