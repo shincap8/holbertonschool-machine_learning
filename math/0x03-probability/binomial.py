@@ -10,7 +10,7 @@ class Binomial:
         if data is None:
             if n <= 0:
                 raise ValueError("n must be a positive value")
-            if p <= 0 and p >= 1:
+            if p <= 0 or p >= 1:
                 raise ValueError("p must be greater than 0 and less than 1")
             self.n = int(n)
             self.p = float(p)
@@ -30,7 +30,7 @@ class Binomial:
 
     def pmf(self, k):
         """Calculates the value of the PMF for a given number of 'successes'"""
-        if k <= 0:
+        if k < 0:
             return 0
         if k <= self.n:
             factor1, factor2, factor3 = 1, 1, 1
@@ -42,7 +42,8 @@ class Binomial:
                 factor3 = factor3 * l
             return ((factor1 / (factor2 * factor3)) * (self.p ** k) *
                     ((1 - self.p) ** (self.n - k)))
-        return 0
+        else:
+            return 0
 
     def cdf(self, k):
         """Calculates the value of the CDF for a given number of 'successes'"""
