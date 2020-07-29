@@ -19,15 +19,14 @@ class Binomial:
                 raise TypeError("data must be a list")
             if len(data) <= 2:
                 raise ValueError("data must contain multiple values")
-            mean = (sum(data)/len(data))
+            mean = sum(data) / len(data)
             dif = []
             for i in data:
                 dif.append((i - mean) ** 2)
-            var = sum(dif) / len(data)
-            p = 1 - (var / mean)
-            oldn = mean / p
-            self.n = int(round(mean / p))
-            self.p = mean / self.n
+            var = sum(dif) / len(dif)
+            ptemp = 1 - (var / mean)
+            self.n = int(round(mean / ptemp))
+            self.p = float(mean / self.n)
 
     def pmf(self, k):
         """Calculates the value of the PMF for a given number of 'successes'"""
