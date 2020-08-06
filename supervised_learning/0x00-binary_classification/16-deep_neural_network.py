@@ -23,7 +23,7 @@ class DeepNeuralNetwork:
         self.weights["W1"] = np.random.randn(
             layers[0], nx)*np.sqrt(2/nx)
         self.weights["b1"] = np.zeros([layers[0], 1], dtype=float)
-        if layers[0] < 0 or type(int) is not int:
+        if layers[0] <= 0 or type(layers[0]) is not int:
             raise TypeError("layers must be a list of positive integers")
         for i in range(1, self.L):
             if layers[i] <= 0 or type(layers[i]) is not int:
