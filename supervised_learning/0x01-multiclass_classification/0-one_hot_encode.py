@@ -10,7 +10,7 @@ def one_hot_encode(Y, classes):
     try:
         Y.shape[1]
         return None
-    except:
+    except Exception:
         C = np.amax(Y)
         hot = np.zeros([C + 1, Y.shape[0]])
         for i in range(len(hot)):
