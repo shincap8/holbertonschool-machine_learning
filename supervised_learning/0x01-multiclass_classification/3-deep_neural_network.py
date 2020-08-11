@@ -57,7 +57,7 @@ class DeepNeuralNetwork:
         self.__cache["A0"] = X
         for i in range(1, self.__L + 1):
             Z = np.matmul(self.__weights["W{}".format(i)],
-                       self.__cache["A{}".format(
+                          self.__cache["A{}".format(
                            i - 1)]) + self.__weights["b{}".format(i)]
             if i != self.__L:
                 sigmoid = 1 / (1 + np.exp(-Z))
