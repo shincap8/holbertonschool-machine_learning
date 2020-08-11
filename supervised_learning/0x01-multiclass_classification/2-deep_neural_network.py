@@ -87,39 +87,42 @@ class DeepNeuralNetwork:
             self.__weights["b{}".format(i)] = self.__weights["b{}".format(
                 i)] - (alpha * db)
 
-    def train(self, X, Y, iterations=5000, alpha=0.05,
-              verbose=True, graph=True, step=100):
-        """Trains the deep neural network"""
-        if type(iterations) is not int:
+    def train(self, X, Y, iterations=5000,
+              alpha=0.05, verbose=True, graph=True, step=100):
+        """trains the model"""
+        if type(iterations) != int:
             raise TypeError("iterations must be an integer")
         if iterations < 0:
             raise ValueError("iterations must be a positive integer")
-        if type(alpha) is not float:
+        if type(alpha) != float:
             raise TypeError("alpha must be a float")
         if alpha < 0:
             raise ValueError("alpha must be positive")
         if verbose is True or graph is True:
-            if type(step) is not int:
+            if type(step) != int:
                 raise TypeError("step must be an integer")
             if step < 0 or step > iterations:
                 raise ValueError("step must be positive and <= iterations")
-        axis_cost = []
-        axis_it = []
         _, cache = self.forward_prop(X)
+        cost_list = []
+        iter_x = []
         for i in range(iterations + 1):
             A, cost = self.evaluate(X, Y)
-            if i == 0 or i == iterations or i % step == 0 and verbose is True:
-                axis_cost.append(cost)
-                axis_it.append(i)
+            if verbose is True and (
+                    i % step == 0 or i == 0 or i == iterations):
                 print("Cost after {} iterations: {}".format(i, cost))
-            self.gradient_descent(Y, cache, alpha)
-            _, cache = self.forward_prop(X)
+                cost_list.append(cost)
+                iter_x.append(i)
+            if i != iterations:
+                self.gradient_descent(Y, cache, alpha)
+                _, cache = self.forward_prop(X)
         if graph is True:
-            plt.plot(axis_it, axis_cost)
-            plt.xlabel('iteration')
-            plt.ylabel('cost')
+            plt.plot(iter_x, cost_list)
             plt.title("Training Cost")
-        return (self.evaluate(X, Y))
+            plt.xlabel("iteration")
+            plt.ylabel("cost")
+            plt.show()
+        return (A, cost)
 
     def save(self, filename):
         """Saves the instance object to a file in pickle format"""
