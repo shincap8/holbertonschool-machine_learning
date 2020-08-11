@@ -12,8 +12,6 @@ def one_hot_encode(Y, classes):
     if type(Y) is not np.ndarray or type(classes) is not int:
         return None
     hot = np.zeros([classes, Y.shape[0]])
-    for i in range(len(hot)):
-        for j in range(len(Y)):
-            if i == Y[j]:
-                hot[i][j] = 1
+    for i, num in enumerate(Y):
+        hot[num][i] = 1
     return hot
