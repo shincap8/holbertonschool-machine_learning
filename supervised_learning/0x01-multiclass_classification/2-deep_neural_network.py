@@ -6,6 +6,7 @@ network performing binary classification"""
 import numpy as np
 import matplotlib.pyplot as plt
 import pickle
+import os
 
 
 class DeepNeuralNetwork:
@@ -123,17 +124,16 @@ class DeepNeuralNetwork:
 
     def save(self, filename):
         """Saves the instance object to a file in pickle format"""
-        try:
-            if filename[-4:] != ".pkl":
-                filename = filename + ".pkl"
-            with open(filename, mode="wb") as f:
-                pickle.dump(self, f)
-        except Exception:
+        if type(filename) is not str:
             return None
+        if filename[-4:] != ".pkl":
+            filename = filename + ".pkl"
+        with open(filename, mode="wb") as f:
+            pickle.dump(self, f)
 
     def load(filename):
-        try:
+        """Loads a pickled DeepNeuralNetwork object"""
+        if os.path.isfile('./' + filename)
             with open(filename, mode="rb") as f:
                 return pickle.load(f)
-        except Exception:
-            return None
+        return None
