@@ -124,4 +124,5 @@ class NeuralNetwork:
             plt.xlabel('iteration')
             plt.ylabel('cost')
             plt.title("Training Cost")
+            plt.show()
         return (self.evaluate(X, Y))
