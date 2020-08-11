@@ -133,7 +133,7 @@ class DeepNeuralNetwork:
 
     def load(filename):
         """Loads a pickled DeepNeuralNetwork object"""
-        if os.path.isfile('./' + filename)
+        if os.path.isfile('./' + filename):
             with open(filename, mode="rb") as f:
                 return pickle.load(f)
         return None
