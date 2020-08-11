@@ -9,6 +9,7 @@ def one_hot_encode(Y, classes):
     """Function that converts a numeric label vector into a one-hot matrix"""
     try:
         Y.shape[1]
+        return None
     except:
         C = np.amax(Y)
         hot = np.zeros([C + 1, Y.shape[0]])
@@ -17,5 +18,3 @@ def one_hot_encode(Y, classes):
                 if i == Y[j]:
                     hot[i][j] = 1
         return hot
-    else:
-        return None
