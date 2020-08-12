@@ -99,7 +99,7 @@ class DeepNeuralNetwork:
             if self.__activation == 'sig':
                 dz = np.matmul(self.__weights["W{}".format(
                     i)].T, dz) * (cache["A{}".format(
-                        i - 1)] * cache["A{}".format(i - 1)])
+                        i - 1)] * (1 - cache["A{}".format(i - 1)]))
             else:
                 dz = np.matmul(self.__weights["W{}".format(
                     i)].T, dz) * (1 - cache["A{}".format(i - 1)]
