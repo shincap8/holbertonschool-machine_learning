@@ -71,10 +71,10 @@ class DeepNeuralNetwork:
                 if self.__activation == 'sig':
                     a = 1 / (1 + np.exp(-Z))
                 else:
-                    a = (np.exp(Z) - np.exp(-Z)) / (np.exp(Z) + np.exp(-Z))
+                    a = np.sinh(Z) / np.cosh(Z)
             else:
                 t = np.exp(Z)
-                a = np.exp(Z) / np.sum(t, axis=0, keepdims=True)
+                a = np.exp(Z) / t.sum(axis=0, keepdims=True)
             self.__cache["A{}".format(i)] = a
         return (a, self.__cache)
 
