@@ -74,7 +74,7 @@ class DeepNeuralNetwork:
                     a = np.sinh(Z) / np.cosh(Z)
             else:
                 t = np.exp(Z)
-                a = np.exp(Z) / t.sum(axis=0, keepdims=True)
+                a = np.exp(Z) / np.sum(t, axis=0, keepdims=True)
             self.__cache["A{}".format(i)] = a
         return (a, self.__cache)
 
@@ -95,7 +95,7 @@ class DeepNeuralNetwork:
         dz = cache["A{}".format(self.__L)] - Y
         for i in range(self.__L, 0, -1):
             db = (np.sum(dz, axis=1, keepdims=True) / Y.shape[1])
-            dw = (np.matmul(cache["A{}".format(i - 1)], dz.T) / Y.shape[1])
+            dw = (np.matmul(cache["A{}".format(i - 1)].T, dz) / Y.shape[1])
             if self.__activation == 'sig':
                 dz = np.matmul(self.__weights["W{}".format(
                     i)].T, dz) * (cache["A{}".format(
