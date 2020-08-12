@@ -86,8 +86,8 @@ class DeepNeuralNetwork:
     def evaluate(self, X, Y):
         """Evaluates the neural network’s predictions"""
         A, _ = self.forward_prop(X)
-        prediction = np.where(A == np.amax(A, axis=0), 1, 0)
         cost = self.cost(Y, A)
+        prediction = np.where(A == np.amax(A, axis=0), 1, 0)
         return (prediction, cost)
 
     def gradient_descent(self, Y, cache, alpha=0.05):
@@ -102,7 +102,8 @@ class DeepNeuralNetwork:
                         i - 1)] * cache["A{}".format(i - 1)])
             else:
                 dz = np.matmul(self.__weights["W{}".format(
-                    i)].T, dz) * (1 - cache["A{}".format(i - 1)] * cache["A{}".format(i - 1)])
+                    i)].T, dz) * (1 - cache["A{}".format(i - 1)]
+                                  * cache["A{}".format(i - 1)])
             self.__weights["W{}".format(i)] = self.__weights["W{}".format(
                 i)] - (alpha * dw).T
             self.__weights["b{}".format(i)] = self.__weights["b{}".format(
