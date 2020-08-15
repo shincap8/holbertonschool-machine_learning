@@ -17,8 +17,8 @@ def evaluate(X, Y, save_path):
         loss = tf.get_collection("loss")[0]
 
         feed_dict = {x: X, y: Y}
-        forwarP = sess.run(y_pred, feed_dict)
-        accuar = sess.run(accuracy, feed_dict)
-        los = sess.run(loss, feed_dict)
+        forwardP = sess.run(y_pred, feed_dict)
+        acc = sess.run(accuracy, feed_dict)
+        losses = sess.run(loss, feed_dict)
 
         return (forwarP, accuar, los)
