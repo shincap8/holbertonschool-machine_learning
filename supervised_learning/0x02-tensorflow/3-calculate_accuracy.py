@@ -7,4 +7,4 @@ import tensorflow as tf
 
 def calculate_accuracy(y, y_pred):
     """Function that calculates the accuracy of a prediction"""
-    return tf.math.reduce_mean((y - y_pred)**2)
+    return tf.reduce_mean(tf.cast(tf.equal(y, y_pred), 'float32'))
