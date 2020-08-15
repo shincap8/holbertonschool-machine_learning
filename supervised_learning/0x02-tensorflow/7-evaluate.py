@@ -21,4 +21,4 @@ def evaluate(X, Y, save_path):
         acc = sess.run(accuracy, feed_dict)
         losses = sess.run(loss, feed_dict)
 
-        return (forwardP, acc, los)
+        return (forwardP, acc, losses)
