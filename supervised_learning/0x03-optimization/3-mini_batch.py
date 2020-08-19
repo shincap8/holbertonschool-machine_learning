@@ -34,21 +34,24 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
             print("\tValidation Accuracy: {}".format(acc_v))
             if i < epochs:
                 Xshf, Yshf = shuffle_data(X_train, Y_train)
-                batch = X_train.shape[0]
+                batch = Xshf.shape[0]
                 start = 0
-                step = 0
+                step = 1
                 while batch > 0:
-                    sess.run(train_op,
-                             feed_dict={x: Xshf[start:start + batch_size],
-                                        y: Yshf[start:start + batch_size]})
-                    step_cost = sess.run([loss], feed_dict={x: Xshf, y: Yshf})
-                    step_acc = sess.run([accuracy],
-                                        feed_dict={x: Xshf, y: Yshf})
-                    step = step + 1
-                    batch = batch - batch_size
-                    start = start + batch_size
+                    if batch - batch_size < 0:
+                        end = Xshf.shape[0]
+                    else:
+                        end = start + batch_size
+                    X = Xshf[start:end]
+                    Y = Yshf[start:end]
+                    sess.run(train_op, feed_dict={x: X, y: Y})
                     if step % 100 == 0:
+                        step_cost = sess.run(loss, feed_dict={x: X, y: Y})
+                        step_acc = sess.run(accuracy, feed_dict={x: X, y: Y})
                         print("\tStep {}:".format(step))
                         print("\t\tCost: {}".format(step_cost))
                         print("\t\tAccuracy: {}".format(step_acc))
+                    step = step + 1
+                    batch = batch - batch_size
+                    start = start + batch_size
         return saver.save(sess, save_path)
