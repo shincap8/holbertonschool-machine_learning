@@ -84,15 +84,13 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001,
     global_step = tf.Variable(0, trainable=False)
     increment_global_step_op = tf.assign(global_step, global_step + 1)
     alpha_new = learning_rate_decay(alpha, decay_rate, global_step, 1)
-    train_op = create_Adam_op(loss, alpha, beta1, beta2, epsilon)
+    train_op = create_Adam_op(loss, alpha_new, beta1, beta2, epsilon)
     tf.add_to_collection('x', x)
     tf.add_to_collection('y', y)
     tf.add_to_collection('y_pred', y_pred)
     tf.add_to_collection('accuracy', accuracy)
     tf.add_to_collection('loss', loss)
     tf.add_to_collection('train', train_op)
-    tf.add_to_collection('alpha', alpha_new)
-    tf.add_to_collection('global_step', global_step)
     init = tf.global_variables_initializer()
     saver = tf.train.Saver()
     with tf.Session() as sess:
@@ -131,5 +129,4 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001,
                     batch = batch - batch_size
                     start = start + batch_size
             sess.run(increment_global_step_op)
-            alpha = sess.run(alpha_new)
         return saver.save(sess, save_path)
