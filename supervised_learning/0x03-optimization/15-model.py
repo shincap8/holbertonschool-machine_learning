@@ -92,6 +92,7 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001,
     tf.add_to_collection('loss', loss)
     tf.add_to_collection('train', train_op)
     tf.add_to_collection('alpha', alpha_new)
+    tf.add_to_collection('global_step', global_step)
     init = tf.global_variables_initializer()
     saver = tf.train.Saver()
     with tf.Session() as sess:
