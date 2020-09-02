@@ -4,7 +4,7 @@
 import tensorflow.keras as K
 
 
-def test_model(network, data, labels, verbose=True):
+def predict(network, data, verbose=False):
     """Function that makes a prediction using a neural network"""
-    results = network.predict(data, labels, verbose=verbose)
+    results = network.predict(data, verbose=verbose)
     return results
