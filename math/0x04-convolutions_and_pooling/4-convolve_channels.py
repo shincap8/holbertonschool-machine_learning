@@ -7,9 +7,9 @@ import numpy as np
 def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     """Function that performs a convolution on images with channels"""
     if padding == 'same':
-        ph = int(((images.shape[2] - 1) * stride[1] +
+        pw = int(((images.shape[2] - 1) * stride[1] +
                   kernel.shape[1] - images.shape[2]) / 2) + 1
-        pw = int(((images.shape[1] - 1) * stride[0] +
+        ph = int(((images.shape[1] - 1) * stride[0] +
                   kernel.shape[0] - images.shape[1]) / 2) + 1
     elif padding == 'valid':
         ph = 0
