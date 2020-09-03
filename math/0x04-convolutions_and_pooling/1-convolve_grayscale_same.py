@@ -18,5 +18,6 @@ def convolve_grayscale_same(images, kernel):
         for j in range(nw):
             image = imagesp[:, i:i + kernel.shape[0],
                             j:j + kernel.shape[1]]
-            convolved[:, i, j] = np.sum(image * kernel, axis=1).sum(axis=1)
+            convolved[:, i, j] = np.sum(np.multiply(image, kernel),
+                                        axis=(1, 2))
     return convolved
