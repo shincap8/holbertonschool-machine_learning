@@ -11,7 +11,7 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     if padding == 'same':
         ph = int(((images.shape[2] - 1) * stride[1] +
                   kernel.shape[1] - images.shape[2]) / 2) + 1
-        ph = int(((images.shape[1] - 1) * stride[0] +
+        pw = int(((images.shape[1] - 1) * stride[0] +
                   kernel.shape[0] - images.shape[1]) / 2) + 1
     elif padding == 'valid':
         ph = 0
