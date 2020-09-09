@@ -15,9 +15,15 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
             for j in range(dA.shape[2]):
                 y = j * stride[1]
                 for k in range(dA.shape[3]):
-                    A_min = A_prev[m, x:x + kernel_shape[0],
-                                   y:y + kernel_shape[1], k]
-                    slope = (A_min == np.max(A_min))
-                    dA_prev[m, x:x + kernel_shape[0],
-                            y:y + kernel_shape[1], k] = slope*dA[m, i, j, k]
-    return dA_prev
+                    if mode == 'max':
+                        A_min = A_prev[m, x:x + kernel_shape[0],
+                                       y:y + kernel_shape[1], k]
+                        slope = (A_min == np.max(A_min))
+                        dA_prev[m, x:x + kernel_shape[0],
+                                y:y + kernel_shape[1],
+                                k] += slope*dA[m, i, j, k]
+                    else:
+                        dAmin = dA[m, i, j, k]/kernel_shape[0]/kernel_shape[1]
+                        dA_prev[m, x:x + kernel_shape[0],
+                                y:y + kernel_shape[1], k] += dAmin
+    return dA
