@@ -35,5 +35,6 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                     dA[m, x:x + W.shape[0],
                        y:y + W.shape[1], :] += dZmin * Wmin
                     dW[:, :, :, k] += dZmin * A
-    dA = dA[:, ph:-ph, pw:-pw, :]
+    if padding == 'same':
+        dA = dA[:, ph:-ph, pw:-pw, :]
     return (dA, dW, db)
