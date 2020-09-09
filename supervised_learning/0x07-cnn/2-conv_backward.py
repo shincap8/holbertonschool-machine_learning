@@ -20,7 +20,7 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     npad = ((0, 0), (ph, ph), (pw, pw), (0, 0))
     A_pad = np.pad(A_prev, pad_width=npad,
                    mode='constant', constant_values=0)
-    dA_prev = np.zeros(A_pad.shape)
+    dA = np.zeros(A_pad.shape)
     dW = np.zeros(W.shape)
     for m in range(dZ.shape[0]):
         for i in range(dZ.shape[1]):
@@ -30,9 +30,10 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                 for k in range(dZ.shape[3]):
                     A = A_pad[m, x:x + W.shape[0],
                               y:y + W.shape[1], :]
-                    dA = dA_prev[m, x:x + W.shape[0],
-                                 y:y + W.shape[1], :]
-                    dA += dZ[m, i, j, k] * W[:, :, :, k]
-                    dW[:, :, :, k] += dZ[m, i, j, k] * A
-    dA_prev = dA_prev[:, ph:-ph, pw:-pw, :]
-    return (dA_prev, dW, db)
+                    Wmin = W[:, :, :, k]
+                    dZmin = dZ[m, i, j, k]
+                    dA[m, x:x + W.shape[0],
+                       y:y + W.shape[1], :] += dZmin * Wmin
+                    dW[:, :, :, k] += dZmin * A
+    dA = dA[:, ph:-ph, pw:-pw, :]
+    return (dA, dW, db)
