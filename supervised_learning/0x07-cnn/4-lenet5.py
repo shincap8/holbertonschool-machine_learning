@@ -8,7 +8,7 @@ import tensorflow as tf
 def lenet5(x, y):
     """Function that builds a modified version of
     the LeNet-5 architecture using tensorflow"""
-    init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    init = tf.contrib.layers.variance_scaling_initializer()
     conv1 = tf.layers.Conv2D(6, kernel_size=(5, 5), padding='same',
                              kernel_initializer=init, activation=tf.nn.relu)
     conv1 = conv1(x)
