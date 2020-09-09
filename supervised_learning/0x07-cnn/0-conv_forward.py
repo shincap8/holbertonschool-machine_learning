@@ -10,9 +10,9 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     over a convolutional layer of a neural network"""
     if padding == 'same':
         ph = int(((A_prev.shape[1] - 1) * stride[0] +
-                  W.shape[0] - A_prev.shape[1]) / 2) + 1
+                  W.shape[0] - A_prev.shape[1]) / 2)
         pw = int(((A_prev.shape[2] - 1) * stride[1] +
-                  W.shape[1] - A_prev.shape[2]) / 2) + 1
+                  W.shape[1] - A_prev.shape[2]) / 2)
     else:
         ph = 0
         pw = 0
