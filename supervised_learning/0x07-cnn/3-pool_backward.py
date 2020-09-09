@@ -26,4 +26,4 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
                         dAmin = dA[m, i, j, k]/kernel_shape[0]/kernel_shape[1]
                         dA_prev[m, x:x + kernel_shape[0],
                                 y:y + kernel_shape[1], k] += dAmin
-    return dA
+    return dA_prev
