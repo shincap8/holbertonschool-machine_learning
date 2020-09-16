@@ -10,7 +10,7 @@ def transition_layer(X, nb_filters, compression):
     in Densely Connected Convolutional Networks"""
     X = K.layers.BatchNormalization(axis=3)(X)
     X = K.layers.Activation('relu')(X)
-    size = int(int(X.shape[3]) * compression)
+    size = int(nb_filters * compression)
     X = K.layers.Conv2D(size, kernel_size=(1, 1),
                         padding='same',
                         kernel_initializer='he_normal')(X)
