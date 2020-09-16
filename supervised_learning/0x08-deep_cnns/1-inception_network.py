@@ -33,7 +33,7 @@ def inception_network():
     X = K.layers.MaxPool2D((3, 3), (2, 2), padding='same')(X)
     X = inception_block(X, [256, 160, 320, 32, 128, 128])
     X = inception_block(X, [384, 192, 384, 48, 128, 128])
-    X = K.layers.AvgPool2D((7,7), padding='same')(X)
+    X = K.layers.AvgPool2D((7, 7), padding='same')(X)
     X = K.layers.Dropout(0.4)(X)
     X = K.layers.Dense(1000, activation='softmax')(X)
     model = K.Model(inputs, X)
