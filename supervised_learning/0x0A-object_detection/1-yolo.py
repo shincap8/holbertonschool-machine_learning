@@ -33,7 +33,7 @@ class Yolo:
         for output in outputs:
             boxes.append(output[..., 0:4])
             box_confidences.append(self.sig(output[..., 4, np.newaxis]))
-            box_class_probs.append(self.sig(-output[..., 5:]))
+            box_class_probs.append(self.sig(output[..., 5:]))
 
         for i in range(len(boxes)):
             gridh = boxes[i].shape[0]
