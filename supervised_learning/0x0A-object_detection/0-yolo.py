@@ -10,11 +10,10 @@ class Yolo:
 
     def __init__(self, model_path, classes_path, class_t, nms_t, anchors):
         """class constructor"""
-        model = K.models.load_model(model_path)
         with open(classes_path) as f:
             classes_t = f.readlines()
-        classes = [x.strip() for x in classes_t]
-        self.model = model
+            classes = [x.strip() for x in classes_t]
+        self.model = K.models.load_model(model_path)
         self.class_names = classes
         self.class_t = class_t
         self.nms_t = nms_t
