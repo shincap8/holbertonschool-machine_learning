@@ -2,8 +2,8 @@
 """class Yolo that uses the Yolo v3
 algorithm to perform object detection"""
 
-import cv2 as cv
 import glob
+import cv2 as cv
 import numpy as np
 import tensorflow.keras as K
 
@@ -100,6 +100,7 @@ class Yolo:
         return ious
 
     def non_max_suppression(self, filtered_boxes, box_classes, box_scores):
+        """public method"""
         return (box_predictions, predicted_box_classes, predicted_box_scores)
 
     @staticmethod
