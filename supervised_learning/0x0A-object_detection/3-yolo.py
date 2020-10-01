@@ -32,7 +32,7 @@ class Yolo:
         for output in outputs:
             boxes.append(output[..., 0:4])
             box_confidences.append(self.sig(output[..., 4, np.newaxis]))
-            box_class_probs.append(self.sig(-output[..., 5:]))
+            box_class_probs.append(self.sig(output[..., 5:]))
         for i in range(len(boxes)):
             gridh = boxes[i].shape[0]
             gridw = boxes[i].shape[1]
@@ -42,7 +42,7 @@ class Yolo:
             t_w = boxes[i][..., 2]
             t_h = boxes[i][..., 3]
             box = np.zeros((gridh, gridw, anchor))
-            indexX = np.arange(gridw).reshape(gridw, 1, 1)
+            indexX = np.arange(gridw).reshape(1, gridw, 1)
             indexY = np.arange(gridh).reshape(gridh, 1, 1)
             boxX = box + indexX
             boxY = box + indexY
@@ -85,7 +85,35 @@ class Yolo:
         classes = box_classes[filtering_mask]
         return (boxes, classes, scores)
 
+    def iou(self, boxA, boxB):
+        """this is the iou of the box against all other boxes"""
+        x1 = max(boxA[0], boxB[0])
+        y1 = max(boxA[1], boxB[1])
+        x2 = min(boxA[2], boxB[2])
+        y2 = min(boxA[3], boxB[3])
+        interArea = max(x2 - x1, 0) * max(y2 - y1, 0)
+        boxAArea = (boxA[2] - boxA[0]) * (boxA[3] - boxA[1])
+        boxBArea = (boxB[2] - boxB[0]) * (boxB[3] - boxB[1])
+        iou = interArea / float(boxAArea + boxBArea - interArea)
+        return iou
+
     def non_max_suppression(self, filtered_boxes, box_classes, box_scores):
         """public method non max supression"""
+        sort_indexes = np.lexsort((-box_scores, box_classes))
+        box_predictions = np.array([filtered_boxes[x] for x in sort_indexes])
+        predicted_box_classes = np.array([box_classes[x]
+                                         for x in sort_indexes])
+        predicted_box_scores = np.array([box_scores[x] for x in sort_indexes])
+        _, count_class = np.unique(predicted_box_classes, return_counts=True)
 
+        index_collect = 0
+        for x in count_class:
+            for i in range(index_collect, x):
+                for j in range(i + 1, x):
+                    iou = self.iou(box_predictions[i], box_predictions[j])
+                    if iou > self.nms_t:
+                        box_predictions.delete(j)
+                        predicted_box_classes.delete(j)
+                        predicted_box_scores.delete(j)
+            index_collect = index_collect + x
         return (box_predictions, predicted_box_classes, predicted_box_scores)
