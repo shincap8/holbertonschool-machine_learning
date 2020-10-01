@@ -13,7 +13,7 @@ class Yolo:
         """class constructor"""
         with open(classes_path, 'r') as f:
             classes_t = f.readlines()
-            classes = [x.strip() for x in classes_t]
+        classes = [x.strip() for x in classes_t]
         self.model = K.models.load_model(model_path)
         self.class_names = classes
         self.class_t = class_t
@@ -44,7 +44,7 @@ class Yolo:
             t_w = boxes[i][..., 2]
             t_h = boxes[i][..., 3]
             box = np.zeros((gridh, gridw, anchor))
-            indexX = np.arange(gridw).reshape(gridw, 1, 1)
+            indexX = np.arange(gridw).reshape(1, gridw, 1)
             indexY = np.arange(gridh).reshape(gridh, 1, 1)
             boxX = box + indexX
             boxY = box + indexY

@@ -32,7 +32,7 @@ class Yolo:
         for output in outputs:
             boxes.append(output[..., 0:4])
             box_confidences.append(self.sig(output[..., 4, np.newaxis]))
-            box_class_probs.append(self.sig(output[..., 5:]))
+            box_class_probs.append(self.sig(-output[..., 5:]))
         for i in range(len(boxes)):
             gridh = boxes[i].shape[0]
             gridw = boxes[i].shape[1]
@@ -42,7 +42,7 @@ class Yolo:
             t_w = boxes[i][..., 2]
             t_h = boxes[i][..., 3]
             box = np.zeros((gridh, gridw, anchor))
-            indexX = np.arange(gridw).reshape(1, gridw, 1)
+            indexX = np.arange(gridw).reshape(gridw, 1, 1)
             indexY = np.arange(gridh).reshape(gridh, 1, 1)
             boxX = box + indexX
             boxY = box + indexY
@@ -84,3 +84,8 @@ class Yolo:
         scores = box_class_scores[filtering_mask]
         classes = box_classes[filtering_mask]
         return (boxes, classes, scores)
+
+    def non_max_suppression(self, filtered_boxes, box_classes, box_scores):
+        """public method non max supression"""
+
+        return (box_predictions, predicted_box_classes, predicted_box_scores)

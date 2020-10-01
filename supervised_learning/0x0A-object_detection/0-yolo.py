@@ -12,7 +12,7 @@ class Yolo:
         """class constructor"""
         with open(classes_path) as f:
             classes_t = f.readlines()
-            classes = [x.strip() for x in classes_t]
+        classes = [x.strip() for x in classes_t]
         self.model = K.models.load_model(model_path)
         self.class_names = classes
         self.class_t = class_t
