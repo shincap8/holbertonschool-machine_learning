@@ -91,9 +91,9 @@ class Yolo:
         y1 = max(boxA[1], boxB[1])
         x2 = min(boxA[2], boxB[2])
         y2 = min(boxA[3], boxB[3])
-        interArea = max(x2 - x1, 0) * max(y2 - y1, 0)
-        boxAArea = (boxA[2] - boxA[0]) * (boxA[3] - boxA[1])
-        boxBArea = (boxB[2] - boxB[0]) * (boxB[3] - boxB[1])
+        interArea = max(0, x2 - x1 + 1) * max(0, y2 - y1 + 1)
+        boxAArea = (boxA[2] - boxA[0] + 1) * (boxA[3] - boxA[1] + 1)
+        boxBArea = (boxB[2] - boxB[0] + 1) * (boxB[3] - boxB[1] + 1)
         iou = interArea / float(boxAArea + boxBArea - interArea)
         return iou
 
@@ -101,10 +101,9 @@ class Yolo:
         """public method non max supression"""
         sort_indexes = np.lexsort((-box_scores, box_classes))
         box_predictions = np.array([filtered_boxes[x] for x in sort_indexes])
-        predicted_box_classes = np.array([box_classes[x]
-                                         for x in sort_indexes])
+        p_box_classes = np.array([box_classes[x] for x in sort_indexes])
         predicted_box_scores = np.array([box_scores[x] for x in sort_indexes])
-        _, count_class = np.unique(predicted_box_classes, return_counts=True)
+        _, count_class = np.unique(p_box_classes, return_counts=True)
 
         index_collect = 0
         i = 0
@@ -114,15 +113,13 @@ class Yolo:
                 while j < index_collect + n:
                     iou = self.iou(box_predictions[i], box_predictions[j])
                     if iou > self.nms_t:
-                        box_predictions = np.delete(box_predictions,
-                                                    remove_index, axis=0)
-                        predicted_box_classes = np.delete(predicted_box_classes,
-                                                          remove_index, axis=0)
+                        box_predictions = np.delete(box_predictions, j, axis=0)
+                        p_box_classes = np.delete(p_box_classes, j, axis=0)
                         predicted_box_scores = np.delete(predicted_box_scores,
-                                                         remove_index, axis=0)
+                                                         j, axis=0)
                         n = n - 1
                     else:
                         j = j + 1
                 i = i + 1
             index_collect = index_collect + n
-        return (box_predictions, predicted_box_classes, predicted_box_scores)
+        return (box_predictions, p_box_classes, predicted_box_scores)
