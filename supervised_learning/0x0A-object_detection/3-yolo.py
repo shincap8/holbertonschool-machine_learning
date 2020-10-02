@@ -107,15 +107,22 @@ class Yolo:
         _, count_class = np.unique(predicted_box_classes, return_counts=True)
 
         index_collect = 0
-        remove_index = []
-        for x in count_class:
-            for i in range(index_collect, x):
-                for j in range(i + 1, x):
+        i = 0
+        for n in count_class:
+            while i < index_collect + n:
+                j = i + 1
+                while j < index_collect + n:
                     iou = self.iou(box_predictions[i], box_predictions[j])
-                    if iou > self.nms_t and j not in remove_index:
-                        remove_index.append[j]
-            index_collect = index_collect + x
-        box_predictions = np.delete(box_predictions, remove_index)
-        predicted_box_classes = np.delete(predicted_box_classes, remove_index)
-        predicted_box_scores = np.delete(predicted_box_scores, remove_index)
+                    if iou > self.nms_t:
+                        box_predictions = np.delete(box_predictions,
+                                                    remove_index, axis=0)
+                        predicted_box_classes = np.delete(predicted_box_classes,
+                                                          remove_index, axis=0)
+                        predicted_box_scores = np.delete(predicted_box_scores,
+                                                         remove_index, axis=0)
+                        n = n - 1
+                    else:
+                        j = j + 1
+                i = i + 1
+            index_collect = index_collect + n
         return (box_predictions, predicted_box_classes, predicted_box_scores)
