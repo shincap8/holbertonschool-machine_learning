@@ -5,6 +5,7 @@ algorithm to perform object detection"""
 import glob
 import cv2 as cv
 import numpy as np
+import os
 import tensorflow.keras as K
 
 
@@ -77,7 +78,7 @@ class Yolo:
         box_scores = [x * y for x, y in zip(box_confidences, box_class_probs)]
         box_class_scores = [np.max(x, axis=-1).reshape(-1) for x in box_scores]
         box_class_scores = np.concatenate(box_class_scores)
-        box_classes = [np.argmax(x, axis=-1).reshape(-1) for x in box_scores]
+        box_classes = [np.argmax(x, axis=-1).reshape(-1)for x in box_scores]
         box_classes = np.concatenate(box_classes)
         filtering_mask = box_class_scores >= self.class_t
         list = [np.reshape(x, (-1, 4)) for x in boxes]
@@ -132,3 +133,48 @@ class Yolo:
         image_paths = glob.glob(folder_path + '/*.jpg')
         images = [cv.imread(x) for x in image_paths]
         return (images, image_paths)
+
+    def preprocess_images(self, images):
+        """public method to preprocess images"""
+        inputw = self.model.input.shape[1].value
+        inputh = self.model.input.shape[2].value
+        pimages = []
+        image_shapes = []
+        for i in range(len(images)):
+            newX = images[i].shape[0]
+            newY = images[i].shape[1]
+            image_shapes.append((newX, newY))
+            resize = cv.resize(images[i], (inputw, inputh),
+                               interpolation=cv.INTER_CUBIC)
+            resize = resize / 255
+            pimages.append(resize)
+        pimages = np.array(pimages)
+        image_shapes = np.array(image_shapes)
+        return (pimages, image_shapes)
+
+    def show_boxes(self, image, boxes, box_classes, box_scores, file_name):
+        """public method to show boxes"""
+        for i in range(len(boxes)):
+            startX = int(boxes[i, 0])
+            startY = int(boxes[i, 1])
+            endX = int(boxes[i, 2])
+            endY = int(boxes[i, 3])
+            cv.rectangle(image, (startX, startY), (endX, endY), (255, 0, 0), 2)
+            name = self.class_names[box_classes[i]]
+            text = "{} {:.2f}".format(name, box_scores[i])
+            cv.putText(image, text, (startX, startY - 5),
+                       cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255),
+                       1, cv.LINE_AA)
+            cv.imshow(file_name, image)
+            k = cv.waitKey(0)
+            if k == ord('s'):
+                if not os.path.isdir('detections'):
+                    os.mkdir('detections')
+                else:
+                    None
+                os.chdir('detections')
+                cv.inwrite(file_name, image)
+                os.chdir('detections')
+                cv.imwrite(file_name, image)
+                os.chdir('../')
+            cv.destroyAllWindows()
