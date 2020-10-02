@@ -165,19 +165,14 @@ class Yolo:
             cv.putText(image, text, (startX, startY - 5),
                        cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255),
                        1, cv.LINE_AA)
-            cv.imshow(file_name, image)
-            k = cv.waitKey(0)
-            if k == ord('s'):
-                if not os.path.isdir('detections'):
-                    os.mkdir('detections')
-                else:
-                    None
-                os.chdir('detections')
-                cv.inwrite(file_name, image)
-                os.chdir('detections')
-                cv.imwrite(file_name, image)
-                os.chdir('../')
-            cv.destroyAllWindows()
+        cv.imshow(file_name, image)
+        k = cv.waitKey(0)
+        if k == ord('s'):
+            os.mkdir('detections') if not os.path.isdir('detections') else None
+            os.chdir('detections')
+            cv.imwrite(file_name, image)
+            os.chdir('../')
+        cv.destroyAllWindows()
 
     def predict(self, folder_path):
         """public method to predict using yolo"""
