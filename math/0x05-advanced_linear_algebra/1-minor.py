@@ -22,12 +22,9 @@ def minor(matrix):
     """Function that calculates the minor matrix of a matrix"""
     if type(matrix) is not list or len(matrix) == 0:
         raise TypeError("matrix must be a list of lists")
-    if len(matrix) > 0:
-        for i in matrix:
-            if type(i) is not list:
-                raise TypeError("matrix must be a list of lists")
-    if len(matrix) == 1 and len(matrix[0]) == 0:
-        raise ValueError("matrix must be a non-empty square matrix")
+    for i in matrix:
+        if type(i) is not list:
+            raise TypeError("matrix must be a list of lists")
     for i in matrix:
         if len(matrix) != len(i):
             raise ValueError("matrix must be a non-empty square matrix")
