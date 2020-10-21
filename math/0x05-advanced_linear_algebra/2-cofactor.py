@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Function that calculates the minor matrix of a matrix"""
+"""Function  that calculates the cofactor matrix of a matrix"""
 
 
 def determinant(matrix):
@@ -19,15 +19,18 @@ def determinant(matrix):
 
 
 def cofactor(matrix):
-    """Function that calculates the minor matrix of a matrix"""
+    """Function  that calculates the cofactor matrix of a matrix"""
     if type(matrix) is not list or len(matrix) == 0:
         raise TypeError("matrix must be a list of lists")
-    if len(matrix) > 0 and type(matrix[0]) is not list:
-        raise TypeError("matrix must be a list of lists")
+    if len(matrix) > 0:
+        for i in matrix:
+            if type(i) is not list:
+                raise TypeError("matrix must be a list of lists")
     if len(matrix) == 1 and len(matrix[0]) == 0:
         raise ValueError("matrix must be a non-empty square matrix")
-    if len(matrix) != len(matrix[0]) or len(matrix) == 0:
-        raise ValueError("matrix must be a non-empty square matrix")
+    for i in matrix:
+        if len(matrix) != len(i):
+            raise ValueError("matrix must be a non-empty square matrix")
     if len(matrix) == 1 and len(matrix) == 1:
         return [[1]]
     if len(matrix) == 2:
