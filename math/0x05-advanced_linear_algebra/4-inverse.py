@@ -4,7 +4,7 @@
 
 def determinant(matrix):
     """Function that calculates the determinant of a matrix"""
-    if len(matrix) == 1 and len(matrix) == 1:
+    if len(matrix) == 1 and len(matrix[0]) == 1:
         return matrix[0][0]
     if len(matrix) == 2:
         return ((matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0]))
@@ -51,8 +51,6 @@ def inverse(matrix):
         for i in matrix:
             if type(i) is not list:
                 raise TypeError("matrix must be a list of lists")
-    if len(matrix) == 1 and len(matrix[0]) == 0:
-        raise ValueError("matrix must be a non-empty square matrix")
     for i in matrix:
         if len(matrix) != len(i):
             raise ValueError("matrix must be a non-empty square matrix")
