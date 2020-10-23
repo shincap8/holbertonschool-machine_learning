@@ -60,13 +60,12 @@ def inverse(matrix):
     det = determinant(matrix)
     if det == 0:
         return None
-    over_det = 1 / det
     if len(matrix) == 1 and len(matrix[0]) == 1:
-        return [[1 * over_det]]
+        return [[1 / det]]
     adjugate = cofactor(matrix)
     copy = [[j for j in adjugate[i]] for i in range(len(adjugate))]
     for i in range(len(adjugate)):
         for j in range(len(adjugate[i])):
             adjugate[j][i] = copy[i][j]
-    inverse = [[j * over_det for j in i] for i in adjugate]
+    inverse = [[j / det for j in i] for i in adjugate]
     return inverse
