@@ -22,6 +22,8 @@ def determinant(matrix):
 
 def cofactor(matrix):
     """Function that calculates the cofactor matrix of a matrix"""
+    if len(matrix) == 1 and len(matrix) == 1:
+        return [[1]]
     if len(matrix) == 2:
         cofactor = [i[::-1] for i in matrix]
         cofactor = cofactor[::-1]
@@ -50,8 +52,6 @@ def inverse(matrix):
     for i in matrix:
         if type(i) is not list:
             raise TypeError("matrix must be a list of lists")
-    if len(matrix) == 1 and len(matrix[0]) == 0:
-        raise ValueError('matrix must be a non-empty square matrix')
     for i in matrix:
         if len(matrix) != len(i):
             raise ValueError("matrix must be a non-empty square matrix")
