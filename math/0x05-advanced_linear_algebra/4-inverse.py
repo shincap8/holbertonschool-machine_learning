@@ -4,6 +4,8 @@
 
 def determinant(matrix):
     """Function that calculates the determinant of a matrix"""
+    if len(matrix) == 1 and len(matrix[0]) == 0:
+        return 1
     if len(matrix) == 1 and len(matrix[0]) == 1:
         return matrix[0][0]
     if len(matrix) == 2:
@@ -22,7 +24,7 @@ def determinant(matrix):
 
 def cofactor(matrix):
     """Function that calculates the cofactor matrix of a matrix"""
-    if len(matrix) == 1 and len(matrix) == 1:
+    if len(matrix) == 1 and len(matrix[i]) == 1:
         return [[1]]
     if len(matrix) == 2:
         cofactor = [i[::-1] for i in matrix]
