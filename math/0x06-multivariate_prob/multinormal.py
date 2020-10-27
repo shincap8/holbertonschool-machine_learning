@@ -21,10 +21,10 @@ class MultiNormal:
         """public instance method that calculates the PDF at a data point"""
         if type(x) is not np.ndarray:
             raise TypeError("x must be a numpy.ndarray")
-        d = self.mean.shape[0]
         if len(x.shape) != 2:
             str = 'x must have the shape ({}, 1)'.format(d)
             raise ValueError(str)
+        d = self.mean.shape[0]
         if x.shape[0] != d or x.shape[1] != 1:
             str = 'x must have the shape ({}, 1)'.format(d)
             raise ValueError(str)
