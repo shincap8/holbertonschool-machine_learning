@@ -11,5 +11,4 @@ def Q_affinities(Y):
     num = 1 / (1 + np.add(np.add(num, sumY).T, sumY))
     num[range(Y.shape[0]), range(Y.shape[0])] = 0
     Q = num / np.sum(num)
-    Q = np.maximum(Q, 1e-12)
     return (Q, num)
