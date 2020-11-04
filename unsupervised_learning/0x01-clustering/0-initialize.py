@@ -6,6 +6,10 @@ import numpy as np
 
 def initialize(X, k):
     """Function that initializes cluster centroids for K-means"""
+    if type(X) is not np.ndarray || type(k) is not int:
+        return None
+    if len(X.shape) != 2 || k < 0:
+        return None
     n, d = X.shape
     if k == 0:
         return None
