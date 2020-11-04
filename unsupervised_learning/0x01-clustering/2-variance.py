@@ -12,6 +12,8 @@ def variance(X, C):
         return None
     if len(X.shape) != 2 or len(C.shape) != 2:
         return None
+    if X.shape[1] != C.shape[1]:
+        return None
     var = np.sum((X - C[:, np.newaxis])**2, axis=-1)
     mean = np.sqrt(var)
     mini = np.min(mean, axis=0)
