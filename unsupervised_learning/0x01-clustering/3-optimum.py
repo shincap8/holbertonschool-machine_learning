@@ -14,7 +14,7 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         return (None, None)
     if kmax is not None and type(kmax) is not int:
         return (None, None)
-    if len(X.shape) != 2 or kmin < 0:
+    if len(X.shape) != 2 or kmin < 1:
         return (None, None)
     if kmax is not None and kmax < kmin:
         return (None, None)
