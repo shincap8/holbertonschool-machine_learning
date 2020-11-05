@@ -9,7 +9,7 @@ def initialize(X, k):
     """Function that initializes variables for a Gaussian Mixture Model"""
     if type(X) is not np.ndarray or type(k) is not int:
         return (None, None, None)
-    if len(X.shape) != 2 or k < 0:
+    if len(X.shape) != 2 or k <= 0:
         return (None, None, None)
     n, d = X.shape
     m, _ = kmeans(X, k)
