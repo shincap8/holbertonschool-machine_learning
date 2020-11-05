@@ -25,5 +25,5 @@ def pdf(X, m, S):
     N = np.sqrt((2*np.pi)**d * S_det)
     fac = np.einsum('...k,kl,...l->...', X-m, S_inv, X-m)
     P = np.exp(-fac / 2) / N
-    P[np.where(P == np.amin(P))[0]] = 1e-300
+    P[np.where(P < 1e-300)] = 1e-300
     return P
