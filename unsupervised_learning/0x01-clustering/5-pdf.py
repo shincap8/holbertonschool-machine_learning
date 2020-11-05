@@ -20,11 +20,10 @@ def pdf(X, m, S):
     n, d = X.shape
     if m.shape[0] != d or S.shape[0] != d or S.shape[1] != d:
         return None
-    
-    P = np.zeros((n))
-    P[:] = 1e-300
     S_det = np.linalg.det(S)
     S_inv = np.linalg.inv(S)
     N = np.sqrt((2*np.pi)**d * S_det)
     fac = np.einsum('...k,kl,...l->...', X-m, S_inv, X-m)
-    return np.exp(-fac / 2) / N
+    P = np.exp(-fac / 2) / N
+    P[P.argmin()] = 1e-300
+    return P
