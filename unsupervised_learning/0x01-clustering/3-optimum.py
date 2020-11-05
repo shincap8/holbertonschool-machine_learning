@@ -28,7 +28,6 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     do = True
     if kmax is None and X.shape[1] > kmin and X.shape[1] <= 10:
         kmax = X.shape[0]
-        print(kmax)
     while do:
         C, clss = kmeans(X, k)
         var = variance(X, C)
@@ -42,7 +41,6 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         k = k + 1
     first = variances[0]
     d_vars = []
-    print(variances)
     for i in range(len(variances)):
         d_vars.append(first - variances[i])
     return (results, d_vars)
