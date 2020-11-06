@@ -21,15 +21,16 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
         return (None, None, None, None, None)
     n, d = X.shape
     pi, m, S = initialize(X, k)
+    g, ll = expectation(X, pi, m, S)
     ll_old = 0
-    for i in range(iterations + 1):
-        g, ll = expectation(X, pi, m, S)
-        pi, m, S = maximization(X, g)
-        if np.abs(ll_old - ll) < tol:
-            break
+    for i in range(iterations):
         if verbose and i % 10 == 0:
             print('Log Likelihood after {} iterations: {:.5f}'.format(i, ll))
+        pi, m, S = maximization(X, g)
+        g, ll = expectation(X, pi, m, S)
+        if np.abs(ll_old - ll) <= tol:
+            break
         ll_old = ll
     if verbose:
-        print('Log Likelihood after {} iterations: {:.5f}'.format(i, ll))
+        print('Log Likelihood after {} iterations: {:.5f}'.format(i + 1, ll))
     return (pi, m, S, g, ll)
