@@ -11,6 +11,8 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     """Function that performs the expectation maximization for a GMM"""
     if type(X) is not np.ndarray or len(X.shape) != 2:
         return (None, None, None, None, None)
+    if type(k) is not int or type(iterations) is not int:
+        return (None, None, None, None, None)
     if k <= 0 or iterations <= 0:
         return (None, None, None, None, None)
     if type(tol) is not float or tol < 0:
@@ -20,7 +22,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     n, d = X.shape
     pi, m, S = initialize(X, k)
     ll_old = 0
-    for i in range(iterations):
+    for i in range(iterations + 1):
         g, ll = expectation(X, pi, m, S)
         pi, m, S = maximization(X, g)
         if np.abs(ll_old - ll) < tol:
