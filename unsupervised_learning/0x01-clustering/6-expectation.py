@@ -17,7 +17,7 @@ def expectation(X, pi, m, S):
         return (None, None)
     if len(pi.shape) != 1 or len(m.shape) != 2:
         return (None, None)
-    if m.shape[1] != Xshape[1]:
+    if m.shape[1] != X.shape[1]:
         return (None, None)
     if S.shape[2] != S.shape[1]:
         return (None, None)
