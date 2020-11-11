@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Function that determines the steady state probabilities of a regular markov chain"""
+"""Function that determines the steady state
+probabilities of a regular markov chain"""
 
 import numpy as np
 
 
 def regular(P):
-    """Function that determines the steady state probabilities of a regular markov chain"""
+    """Function that determines the steady state
+    probabilities of a regular markov chain"""
     if type(P) is not np.ndarray or len(P.shape) != 2:
         return None
     if P.shape[0] != P.shape[1]:

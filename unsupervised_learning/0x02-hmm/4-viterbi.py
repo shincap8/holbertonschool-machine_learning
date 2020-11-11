@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Function that performs the forward algorithm for a hidden markov model"""
+"""Function that calculates the most likely
+sequence of hidden states for a hidden markov model"""
 
 import numpy as np
 
 
-def forward(Observation, Emission, Transition, Initial):
-    """Function that performs the forward
-    algorithm for a hidden markov model"""
+def viterbi(Observation, Emission, Transition, Initial):
+    """Function that calculates the most likely
+    sequence of hidden states for a hidden markov model"""
     if type(Observation) is not np.ndarray or len(Observation.shape) != 1:
         return (None, None)
     if type(Emission) is not np.ndarray or len(Emission.shape) != 2:
@@ -21,11 +22,17 @@ def forward(Observation, Emission, Transition, Initial):
         return (None, None)
     if N != Initial.shape[0] or Initial.shape[1] != 1:
         return (None, None)
-    F = np.zeros([N, T])
-    F[:, 0] = Initial.T * Emission[:, Observation[0]]
+    D = np.zeros([N, T])
+    path = np.zeros(T)
+    phi = np.zeros([N, T])
+    D[:, 0] = Initial.T * Emission[:, Observation[0]]
     for i in range(1, T):
         for j in range(N):
-            F[j, i] = F[:, i - 1].dot(Transition[:, j]) *\
+            D[j, i] = np.max(D[:, i - 1] * Transition[:, j]) *\
                 Emission[j, Observation[i]]
-    P = np.sum(F[:, T - 1:], axis=0)[0]
-    return (P, F)
+            phi[j, i] = np.argmax(D[:, i-1] * Transition[:, j])
+    path[T - 1] = np.argmax(D[:, T - 1])
+    for i in range(T-2, -1, -1):
+        path[i] = phi[int(path[i + 1]), i + 1]
+    P = np.max(D[:, T - 1:], axis=0)[0]
+    return (path, P)
