@@ -35,4 +35,5 @@ def viterbi(Observation, Emission, Transition, Initial):
     for i in range(T-2, -1, -1):
         path[i] = phi[int(path[i + 1]), i + 1]
     P = np.max(D[:, T - 1:], axis=0)[0]
+    path = [int(i) for i in path]
     return (path, P)
