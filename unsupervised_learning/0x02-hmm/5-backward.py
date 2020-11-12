@@ -21,12 +21,6 @@ def backward(Observation, Emission, Transition, Initial):
         return (None, None)
     if N != Initial.shape[0] or Initial.shape[1] != 1:
         return (None, None)
-    T = Observation.shape[0]
-    N, M = Emission.shape
-    if Transition.shape[0] != Transition.shape[1] or Transition.shape[0] != N:
-        return (None, None)
-    if N != Initial.shape[0] or Initial.shape[1] != 1:
-        return (None, None)
     B = np.zeros([N, T])
     B[:, T - 1] = np.ones((N))
     for i in range(T - 2, -1, -1):
