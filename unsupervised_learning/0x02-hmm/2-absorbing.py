@@ -13,6 +13,19 @@ def absorbing(P):
     if np.min(P ** 2) < 0 or np.min(P ** 3) < 0:
         return False
     ab_state = np.where(np.diag(P) == 1)
+    if len(ab_state[0]) == P.shape[0]:
+        return True
+    if len(ab_state[0]) == 0:
+        return False
+    B = np.copy(P)
+    B = np.delete(np.delete(B, ab_state[0], 0), ab_state[0], 1)
+    In = np.identity(B.shape[0])
+    try:
+        result = np.linalg.inv(In - B)
+        return True
+    except Exception:
+        return False
+    """
     row = P[ab_state[0]]
     count = np.sum(row, axis=0)
     for i in range(P.shape[0]):
@@ -20,4 +33,4 @@ def absorbing(P):
         intersection = count * check_r
         if (intersection == 1).any():
             count[i] = 1
-    return count.all()
+    return count.all()"""
