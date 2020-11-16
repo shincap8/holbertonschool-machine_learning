@@ -25,12 +25,3 @@ def absorbing(P):
         return True
     except Exception:
         return False
-    """
-    row = P[ab_state[0]]
-    count = np.sum(row, axis=0)
-    for i in range(P.shape[0]):
-        check_r = P[i] != 0
-        intersection = count * check_r
-        if (intersection == 1).any():
-            count[i] = 1
-    return count.all()"""
