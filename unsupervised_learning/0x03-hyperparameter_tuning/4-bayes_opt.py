@@ -37,5 +37,5 @@ class BayesianOptimization:
             Z = imp / sigma
             ei = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
             ei[sigma == 0.0] = 0.0
-        Next = self.X_s[np.argmax(ei)]
-        return Next, ei.reshape(-1)
+        X_next = self.X_s[np.argmax(ei)]
+        return (X_next, ei.reshape(-1))
