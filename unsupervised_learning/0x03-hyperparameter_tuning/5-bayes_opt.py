@@ -48,12 +48,7 @@ class BayesianOptimization:
             if X_next in self.gp.X:
                 break
             self.gp.update(X_next, Y_next)
-        if self.minimize:
             index = np.argmin(self.gp.Y)
-            Y_opt = self.gp.Y[index]
-            X_opt = self.gp.X[index]
-        else:
-            index = np.argmax(self.gp.Y)
-            Y_opt = self.gp.Y[index]
-            X_opt = self.gp.X[index]
+        Y_opt = self.gp.Y[index]
+        X_opt = self.gp.X[index]
         return (X_opt, Y_opt)
