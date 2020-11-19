@@ -31,7 +31,7 @@ class GaussianProcess:
         kss = self.kernel(X_s, X_s)
         kinv = np.linalg.inv(self.K)
         mu = np.dot(ks.T, kinv).dot(self.Y)
-        mu = mu.reshape((10))
+        mu = mu.reshape((X_s.shape[0]))
         sigma = np.diag(kss - np.dot(ks.T, kinv).dot(ks))
         return (mu, sigma)
 
