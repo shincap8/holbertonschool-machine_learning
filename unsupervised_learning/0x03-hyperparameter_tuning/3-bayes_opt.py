@@ -15,9 +15,4 @@ class BayesianOptimization:
         self.gp = GP(X_init, Y_init, l, sigma_f)
         self.minimize = minimize
         self.xsi = xsi
-        step = (bounds[1] - bounds[0]) / (ac_samples - 1)
-        Xs = np.zeros([ac_samples, 1])
-        Xs[0] = bounds[0]
-        for i in range(1, ac_samples):
-            Xs[i] = Xs[i - 1] + step
-        self.X_s = Xs
+        self.X_s = np.linspace(bounds[0], bounds[1], ac_samples).reshape(-1, 1)
