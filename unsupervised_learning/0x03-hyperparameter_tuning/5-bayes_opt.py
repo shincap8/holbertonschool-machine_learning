@@ -16,12 +16,7 @@ class BayesianOptimization:
         self.gp = GP(X_init, Y_init, l, sigma_f)
         self.minimize = minimize
         self.xsi = xsi
-        step = (bounds[1] - bounds[0]) / (ac_samples - 1)
-        Xs = np.zeros([ac_samples, 1])
-        Xs[0] = bounds[0]
-        for i in range(1, ac_samples):
-            Xs[i] = Xs[i - 1] + step
-        self.X_s = Xs
+        self.X_s = np.linspace(bounds[0], bounds[1], ac_samples).reshape(-1, 1)
 
     def acquisition(self):
         """Method that calculates the next best sample location"""
@@ -45,7 +40,8 @@ class BayesianOptimization:
         for i in range(iterations):
             X_next, _ = self.acquisition()
             Y_next = self.f(X_next)
-            if np.isclose(X_next, self.gp.X).any():
+            if (X_next == self.gp.X).any():
+                self.gp.X = self.gp.X[:-1]
                 break
             self.gp.update(X_next, Y_next)
         if self.minimize:
