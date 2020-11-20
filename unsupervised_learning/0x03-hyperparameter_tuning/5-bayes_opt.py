@@ -45,7 +45,7 @@ class BayesianOptimization:
         for i in range(iterations):
             X_next, _ = self.acquisition()
             Y_next = self.f(X_next)
-            if X_next in self.gp.X:
+            if (X_next == self.gp.X).any():
                 break
             self.gp.update(X_next, Y_next)
         if self.minimize:
