@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Script to creates, trains, and validates a keras model for the forecasting of BTC"""
+"""Script to creates, trains, and validates a
+keras model for the forecasting of BTC"""
 import numpy as np
 import tensorflow as tf
 
