@@ -3,6 +3,7 @@
 keras model for the forecasting of BTC"""
 import numpy as np
 import tensorflow as tf
+preprocess = __import__('preprocess_data').preprocess
 
 
 class WindowGenerator():
@@ -171,3 +172,7 @@ class Baseline(tf.keras.Model):
         val_performance['LSTM'] = lstm_model.evaluate(window.val)
         performance['LSTM'] = lstm_model.evaluate(window.test, verbose=0)
         window.plot(lstm_model)
+
+
+train_df, val_df, test_df = preprocess()
+Baseline.forecasting(train_df, val_df, test_df)
