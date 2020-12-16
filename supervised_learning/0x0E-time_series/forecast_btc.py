@@ -3,6 +3,7 @@
 keras model for the forecasting of BTC"""
 import numpy as np
 import tensorflow as tf
+
 preprocess = __import__('preprocess_data').preprocess
 
 
@@ -116,7 +117,6 @@ class WindowGenerator():
 
 class Baseline(tf.keras.Model):
     """Baseline Class"""
-
     def __init__(self, label_index=None):
         """constructor method"""
         super().__init__()

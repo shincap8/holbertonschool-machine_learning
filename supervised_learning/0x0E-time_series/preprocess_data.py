@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
 """Method to preprocess the data"""
 import datetime
+import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-import numpy as np
 import os
 import pandas as pd
 import tensorflow as tf
 
 
-def preprocessing():
+def preprocess():
     """Method to preprocess the data"""
     filename = 'bitstampUSD_1-min_data_2012-01-01_to_2020-04-22.csv'
-    data = pd.read_csv(filename)
-    df = data.dropna()
+    df = pd.read_csv(filename)
     df['Timestamp'] = pd.to_datetime(df['Timestamp'], unit='s')
+    df['Volume_(BTC)'].fillna(value=0, inplace=True)
+    df['Volume_(Currency)'].fillna(value=0, inplace=True)
+    df['Weighted_Price'].fillna(value=0, inplace=True)
+    df['Open'].fillna(method='ffill', inplace=True)
+    df['High'].fillna(method='ffill', inplace=True)
+    df['Low'].fillna(method='ffill', inplace=True)
+    df['Close'].fillna(method='ffill', inplace=True)
     df = df[df['Timestamp'].dt.year >= 2017]
     df.reset_index(inplace=True, drop=True)
     df = df[0::60]
@@ -38,4 +44,4 @@ def preprocessing():
     train_df = (train_df - train_mean) / train_std
     val_df = (val_df - train_mean) / train_std
     test_df = (test_df - train_mean) / train_std
-    return train_df, val_df, test_df
+    return (train_df, val_df, test_df)
