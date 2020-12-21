@@ -4,8 +4,6 @@ keras model for the forecasting of BTC"""
 import numpy as np
 import tensorflow as tf
 
-preprocess = __import__('preprocess_data').preprocess
-
 
 class WindowGenerator():
     """Window Generator Class"""
