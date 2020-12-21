@@ -10,7 +10,7 @@ import tensorflow as tf
 
 def preprocess():
     """Method to preprocess the data"""
-    filename = 'bitstampUSD_1-min_data_2012-01-01_to_2020-04-22.csv'
+    """filename = 'bitstampUSD_1-min_data_2012-01-01_to_2020-04-22.csv'
     df = pd.read_csv(filename)
     df['Timestamp'] = pd.to_datetime(df['Timestamp'], unit='s')
     df['Volume_(BTC)'].fillna(value=0, inplace=True)
@@ -43,4 +43,4 @@ def preprocess():
     train_df = (train_df - train_mean) / train_std
     val_df = (val_df - train_mean) / train_std
     test_df = (test_df - train_mean) / train_std
-    return (train_df, val_df, test_df)
+    return (train_df, val_df, test_df)"""

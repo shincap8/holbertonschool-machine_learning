@@ -170,7 +170,3 @@ class Baseline(tf.keras.Model):
         val_performance['LSTM'] = lstm_model.evaluate(window.val)
         performance['LSTM'] = lstm_model.evaluate(window.test, verbose=0)
         window.plot(lstm_model)
-
-
-train_df, val_df, test_df = preprocess()
-Baseline.forecasting(train_df, val_df, test_df)
