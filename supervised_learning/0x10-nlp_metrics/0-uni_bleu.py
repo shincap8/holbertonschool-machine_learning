@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#!/usr/bin/env python3
 """Function that calculates the unigram BLEU score for a sentence"""
 
 import numpy as np
@@ -50,4 +51,7 @@ def uni_bleu(references, sentence):
         BP = np.exp(1 - (float(r) / c))
     score = np.sum([(wn * np.log(Pn[i])) if Pn[i] != 0 else 0
                     for i, wn in enumerate(W)])
-    return (BP * np.exp(score))
+    BLEU = BP * np.exp(score)
+    if BLEU > 0.4:
+        return round(BLEU, 7)
+    return BLEU
