@@ -41,7 +41,7 @@ def modified_precision(references, sentence, n):
 
 
 def ngram_bleu(references, sentence, n):
-    """Function that calculates the unigram BLEU score for a sentence"""
+    """Function that calculates the n-gram BLEU score for a sentence"""
     W = [0.25 for x in range(4)]
     Pn = [modified_precision(references, sentence, n)
           for ngram, _ in enumerate(W, start=1)]
