@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#!/usr/bin/env python3
 """Function that calculates the unigram BLEU score for a sentence"""
 
 import numpy as np
