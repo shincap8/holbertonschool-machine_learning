@@ -41,7 +41,8 @@ def modified_precision(references, sentence, n):
 
 
 def cumulative_bleu(references, sentence, n):
-    """Function that calculates the cumulative n-gram BLEU score for a sentence"""
+    """Function that calculates the cumulative
+    n-gram BLEU score for a sentence"""
     value = 1 / n
     W = [value for x in range(n)]
     Pn = [modified_precision(references, sentence, ngram)
