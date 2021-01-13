@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """Function that creates all masks for training/validation"""
 
-import tensorflow.compat.v2 as tf
-import tensorflow_datasets as tfds
+import tensorflow as tf
 
 
 def create_masks(inputs, target):
