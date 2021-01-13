@@ -23,7 +23,7 @@ class Dataset:
         data_train = data_train.shuffle(num_examples).padded_batch(batch_size)
         self.data_train = data_train.prefetch(tf.data.experimental.AUTOTUNE)
         data_valid = tfds.load('ted_hrlr_translate/pt_to_en',
-                               split='validation', as_supervised=True,)
+                               split='validation', as_supervised=True)
         data_valid = data_valid.map(self.tf_encode)
         data_valid = data_valid.filter(self.fil_len).padded_batch(batch_size)
         self.data_valid = data_valid
