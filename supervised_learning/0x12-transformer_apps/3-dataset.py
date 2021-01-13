@@ -9,7 +9,8 @@ class Dataset:
     """Dataset class"""
     def __init__(self, batch_size, max_len):
         """Constructor"""
-        self.MAX_LENGTH = max_len
+        global MAX_LENGTH
+        MAX_LENGTH = max_len
         data_train, data_info = tfds.load('ted_hrlr_translate/pt_to_en',
                                           split='train', as_supervised=True,
                                           with_info=True)
@@ -55,7 +56,8 @@ class Dataset:
         result_en.set_shape([None])
         return (result_pt, result_en)
 
-    def filter_length(x, y, max_length=self.MAX_LENGTH):
-        """Method to filter"""
-        return tf.logical_and(tf.size(x) <= max_length,
-                              tf.size(y) <= max_length)
+
+def filter_length(x, y, max_length=self.MAX_LENGTH):
+    """Method to filter"""
+    return tf.logical_and(tf.size(x) <= max_length,
+                          tf.size(y) <= max_length)
