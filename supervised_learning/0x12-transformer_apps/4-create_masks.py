@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Function that creates all masks for training/validation"""
 
-import tensorflow as tf
+import tensorflow.compat.v2 as tf
+import tensorflow_datasets as tfds
 
 
 def create_padding_mask(seq):
