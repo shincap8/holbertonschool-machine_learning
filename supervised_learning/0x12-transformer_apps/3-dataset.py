@@ -6,6 +6,7 @@ import tensorflow_datasets as tfds
 
 MAX_LENGTH
 
+
 def filter_length(x, y, max_length=MAX_LENGTH):
     """Method to filter"""
     return tf.logical_and(tf.size(x) <= max_length,
