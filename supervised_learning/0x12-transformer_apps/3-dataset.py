@@ -14,8 +14,6 @@ class Dataset:
                                           split='train', as_supervised=True,
                                           with_info=True)
         tokenizer_pt, tokenizer_en = self.tokenize_dataset(data_train)
-        self.tokenizer_pt = tokenizer_pt
-        self.tokenizer_en = tokenizer_en
         data_train = data_train.map(self.tf_encode)
         data_train = data_train.filter(self.fil_len)
         data_train = data_train.cache()
@@ -27,6 +25,8 @@ class Dataset:
         data_valid = data_valid.map(self.tf_encode)
         data_valid = data_valid.filter(self.fil_len).padded_batch(batch_size)
         self.data_valid = data_valid
+        self.tokenizer_pt = tokenizer_pt
+        self.tokenizer_en = tokenizer_en
 
     def tokenize_dataset(self, data):
         """Method that creates sub-word tokenizers for our dataset"""
