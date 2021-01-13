@@ -26,6 +26,7 @@ class Dataset:
                                split='validation', as_supervised=True,)
         data_valid = data_valid.map(self.tf_encode)
         data_valid = data_valid.filter(self.fil_len).padded_batch(batch_size)
+        self.data_valid = data_valid
 
     def tokenize_dataset(self, data):
         """Method that creates sub-word tokenizers for our dataset"""
