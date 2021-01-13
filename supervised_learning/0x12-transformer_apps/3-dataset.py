@@ -4,21 +4,12 @@
 import tensorflow.compat.v2 as tf
 import tensorflow_datasets as tfds
 
-MAX_LENGTH
-
-
-def filter_length(x, y, max_length=MAX_LENGTH):
-    """Method to filter"""
-    return tf.logical_and(tf.size(x) <= max_length,
-                          tf.size(y) <= max_length)
-
 
 class Dataset:
     """Dataset class"""
     def __init__(self, batch_size, max_len):
         """Constructor"""
-        global MAX_LENGTH
-        MAX_LENGTH = max_len
+        self.MAX_LENGTH = max_len
         data_train, data_info = tfds.load('ted_hrlr_translate/pt_to_en',
                                           split='train', as_supervised=True,
                                           with_info=True)
@@ -63,3 +54,8 @@ class Dataset:
         result_pt.set_shape([None])
         result_en.set_shape([None])
         return (result_pt, result_en)
+
+    def filter_length(x, y, max_length=self.MAX_LENGTH):
+        """Method to filter"""
+        return tf.logical_and(tf.size(x) <= max_length,
+                              tf.size(y) <= max_length)
