@@ -9,8 +9,7 @@ class Dataset:
     """Dataset class"""
     def __init__(self, batch_size, max_len):
         """Constructor"""
-        global MAX_LENGTH
-        MAX_LENGTH = max_len
+        self.MAX_LENGTH = max_len
         data_train, data_info = tfds.load('ted_hrlr_translate/pt_to_en',
                                           split='train', as_supervised=True,
                                           with_info=True)
@@ -18,7 +17,7 @@ class Dataset:
         self.tokenizer_pt = tokenizer_pt
         self.tokenizer_en = tokenizer_en
         data_train = data_train.map(self.tf_encode)
-        data_train = data_train.filter(filter_length)
+        data_train = data_train.filter(self.filter_length)
         data_train = data_train.cache()
         num_examples = data_info.splits['train'].num_examples
         data_train = data_train.shuffle(num_examples).padded_batch(batch_size)
@@ -26,7 +25,7 @@ class Dataset:
         data_valid = tfds.load('ted_hrlr_translate/pt_to_en',
                                split='validation', as_supervised=True,)
         data_valid = data_valid.map(self.tf_encode)
-        data_valid = data_valid.filter(filter_length).padded_batch(batch_size)
+        data_valid = data_valid.filter(self.filter_length).padded_batch(batch_size)
 
     def tokenize_dataset(self, data):
         """Method that creates sub-word tokenizers for our dataset"""
@@ -56,8 +55,10 @@ class Dataset:
         result_en.set_shape([None])
         return (result_pt, result_en)
 
-
-def filter_length(x, y, max_length=self.MAX_LENGTH):
+    def filter_length(self, x, y):
     """Method to filter"""
+    max_length = self.MAX_LENGTH
     return tf.logical_and(tf.size(x) <= max_length,
                           tf.size(y) <= max_length)
+
+
