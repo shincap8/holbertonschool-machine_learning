@@ -4,6 +4,7 @@
 import tensorflow.compat.v2 as tf
 import tensorflow_datasets as tfds
 
+MAX_LENGTH
 
 def filter_length(x, y, max_length=MAX_LENGTH):
     """Method to filter"""
