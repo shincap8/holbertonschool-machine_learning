@@ -16,7 +16,7 @@ class Dataset:
         self.tokenizer_pt = tokenizer_pt
         self.tokenizer_en = tokenizer_en
         data_train = data_train.map(self.tf_encode)
-        data_train = data_train.filter(self.fil_len)
+        data_train = data_train.filter(fil_len)
         data_train = data_train.cache()
         padded_s = ([None], [None])
         num_examples = data_info.splits['train'].num_examples
@@ -27,7 +27,7 @@ class Dataset:
         data_valid = tfds.load('ted_hrlr_translate/pt_to_en',
                                split='validation', as_supervised=True)
         data_valid = data_valid.map(self.tf_encode)
-        data_valid = data_valid.filter(self.fil_len)
+        data_valid = data_valid.filter(fil_len)
         data_valid = data_valid.padded_batch(batch_size,
                                              padded_shapes=padded_s)
         self.data_valid = data_valid
