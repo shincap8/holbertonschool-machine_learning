@@ -7,35 +7,35 @@ import tensorflow_datasets as tfds
 
 class Dataset:
     """Dataset class"""
-    def __init__(self, batch_size, max_len):
-        """Constructor"""
+    def _init_(self, batch_size, max_len):
+        """ doc """
         examples, data_info = tfds.load('ted_hrlr_translate/pt_to_en',
-                                        as_supervised=True,
-                                        with_info=True)
+                                        with_info=True,
+                                        as_supervised=True)
+        data_info = data_info
         data_train, data_valid = examples['train'], examples['validation']
-        tokenizer_pt, tokenizer_en = self.tokenize_dataset(data_train)
-        self.tokenizer_pt = tokenizer_pt
-        self.tokenizer_en = tokenizer_en
+        self.tokenizer_pt, self.tokenizer_en = \
+            self.tokenize_dataset(data_train)
         data_train = data_train.map(self.tf_encode)
+        data_valid = data_valid.map(self.tf_encode)
 
-        def fil_len(x, y, max_length=max_len):
-            """Method to filter"""
+        def filter_max_length(x, y, max_length=max_len):
+            """Filter max length method"""
             return tf.logical_and(tf.size(x) <= max_length,
                                   tf.size(y) <= max_length)
 
-        data_train = data_train.filter(fil_len)
+        data_train = data_train.filter(filter_max_length)
         data_train = data_train.cache()
-        num_examples = data_info.splits['train'].num_examples
-        data_train = data_train.shuffle(num_examples)
-        padded_s = ([None], [None])
+        train_dataset_size = data_info.splits['train'].num_examples
+        data_train = data_train.shuffle(train_dataset_size)
+        padded_shapes = ([None], [None])
         data_train = data_train.padded_batch(batch_size,
-                                             padded_shapes=padded_s)
+                                             padded_shapes=padded_shapes)
         self.data_train = data_train.prefetch(tf.data.experimental.AUTOTUNE)
-        data_valid = data_valid.map(self.tf_encode)
-        data_valid = data_valid.filter(fil_len)
+        data_valid = data_valid.filter(filter_max_length)
+        padded_shapes = ([None], [None])
         self.data_valid = data_valid.padded_batch(batch_size,
-                                                  padded_shapes=padded_s)
-        self.data_valid = data_valid
+                                                  padded_shapes=padded_shapes)
 
     def tokenize_dataset(self, data):
         """Method that creates sub-word tokenizers for our dataset"""
