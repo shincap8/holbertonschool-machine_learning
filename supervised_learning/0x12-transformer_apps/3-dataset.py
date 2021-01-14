@@ -7,7 +7,7 @@ import tensorflow_datasets as tfds
 
 class Dataset:
     """Dataset class"""
-    def _init_(self, batch_size, max_len):
+    def __init__(self, batch_size, max_len):
         """ doc """
         examples, data_info = tfds.load('ted_hrlr_translate/pt_to_en',
                                         with_info=True,
