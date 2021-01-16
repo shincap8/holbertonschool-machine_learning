@@ -2,6 +2,7 @@
 """Transformer class o create the decoder for a transformer"""
 
 import tensorflow as tf
+import numpy as np
 
 def get_angles(pos, i, d_model):
     """Angles"""
