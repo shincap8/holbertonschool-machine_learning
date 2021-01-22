@@ -2,6 +2,8 @@
 """Function that answers questions from a reference text"""
 
 import cmd
+import numpy as np
+import os
 import tensorflow as tf
 import tensorflow_hub as hub
 from transformers import BertTokenizer
@@ -33,9 +35,26 @@ def question_answer(question, reference):
     return (answer)
 
 
-def answer_loop(reference):
+def semantic_search(corpus_path, sentence):
+    """Function that performs semantic search on a corpus of documents"""
+    refs = [sentence]
+    for file in os.listdir(corpus_path):
+        if ".md" in file:
+            name = corpus_path + "/" + file
+            with open(name, 'r', encoding='utf-8') as f:
+                refs.append(f.read())
+    model = "https://tfhub.dev/google/universal-sentence-encoder-large/5"
+    embed = hub.load(model)
+    embeddings = embed(refs)
+    correlation = np.inner(embeddings, embeddings)
+    idx = np.argmax(correlation[0, 1:]) + 1
+
+    return refs[idx]
+
+
+def question_answer(corpus_path):
     """Function that answers questions from a reference text"""
-    reference = reference
+    corpus_path = corpus_path
 
     class QABotCommand(cmd.Cmd):
         """QAbotCommand class"""
@@ -51,7 +70,8 @@ def answer_loop(reference):
                 self.do_bye(line)
                 return ("bye")
             else:
-                answer = question_answer(line, reference)
+                reference = semantic_search(corpus_path, line)
+                answer = qa(line, reference)
                 if answer is None:
                     answer = "Sorry, I do not understand your question."
                 print("A:", answer)
