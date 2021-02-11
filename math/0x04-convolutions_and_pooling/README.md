@@ -1,4 +1,4 @@
-# 0x03. Convolutions and Pooling
+# 0x04. Convolutions and Pooling
 
 ### Description
 
