@@ -47,4 +47,3 @@ This project is about implementing common linear algebra functions, such as add 
 | ------ | ------ |
 | [100-slice_like_a_ninja.py](100-slice_like_a_ninja.py) | Slices a matrix along specific axes. |
 | [101-the_whole_barn.py](101-the_whole_barn.py) | Adds two matrices. |
-| [102-squashed_like_sardines.py](102-squashed_like_sardines.py) | Concatenates two matrices along a specific axis. |
