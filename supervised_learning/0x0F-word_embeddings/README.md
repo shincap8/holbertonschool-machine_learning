@@ -25,4 +25,4 @@ This project is about implementing natural language processing - word embeddings
 | [2-word2vec.py](2-word2vec.py) | Creates and trains a gensim word2vec model. |
 | [3-gensim_to_keras.py](3-gensim_to_keras.py) | Converts a gensim word2vec model to a keras Embedding layer. |
 | [4-fasttext.py](4-fasttext.py) | Creates and trains a genism fastText model. |
-| [5-elmo](5-elmo) | When training an ELMo embedding model, you are training: The internal weights of the BiLSTM, The character embedding layer, The weights applied to the hidden states. |
+| [5-elmo](5-elmo) | When training an ELMo embedding model, you are training: The weights applied to the hidden states. |
