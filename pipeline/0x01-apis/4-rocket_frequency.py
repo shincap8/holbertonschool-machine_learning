@@ -6,7 +6,7 @@ import time
 
 
 if __name__ == '__main__':
-    url = "https://api.spacexdata.com/v4/launches/past"
+    url = "https://api.spacexdata.com/v4/launches"
     r = rq.get(url)
     launches = {}
     for i in r.json():
