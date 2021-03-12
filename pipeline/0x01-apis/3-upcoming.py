@@ -8,15 +8,15 @@ import time
 if __name__ == '__main__':
     url = "https://api.spacexdata.com/v4/launches/upcoming"
     r = rq.get(url)
-    launches = sorted(r.json(), key=lambda i: i['date_unix'])
-    date_unix = launches[0]['date_unix']
-    for i in r.json():
-        if i['date_unix'] == date_unix:
-            launch_name = i['name']
-            date = i['date_local']
-            rocket_id = i['rocket']
-            launchpad_id = i['launchpad']
-            break
+    d_unix = int(time.time())
+    for i in range(len(r.json())):
+        if d_unix > r.json()[i]['date_unix']:
+            d_unix = r.json()[i]['date_unix']
+            ind = i
+    launch_name = r.json()[ind]['name']
+    date = r.json()[ind]['date_local']
+    rocket_id = r.json()[ind]['rocket']
+    launchpad_id = r.json()[ind]['launchpad']
     url = "https://api.spacexdata.com/v4/rockets/{}".format(rocket_id)
     r = rq.get(url)
     rocket_name = r.json()['name']
