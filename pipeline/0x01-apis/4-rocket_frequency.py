@@ -23,7 +23,7 @@ if __name__ == '__main__':
                             'launches': launches[i['id']]})
         else:
             continue
-    launches = sorted(rockets, key=lambda i: (i['launches'], i['rocket']),
-                      reverse=True)
+    launches = sorted(rockets, key=lambda i: i['rocket'])
+    launches = sorted(rockets, key=lambda i: i['launches'], reverse=True)
     for i in launches:
         print("{}: {}".format(i['rocket'], i['launches']))
