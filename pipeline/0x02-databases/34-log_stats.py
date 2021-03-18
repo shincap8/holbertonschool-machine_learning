@@ -14,6 +14,6 @@ if __name__ == "__main__":
     for method in methods:
         nmethod = logs.count_documents({"method": method})
         print("\tmethod {}: {}".format(method, nmethod))
-    f_path = {"method": "GET", "path": "/status"}
-    npath = logs.count_documents(f_path)
+    filter_path = {"method": "GET", "path": "/status"}
+    npath = logs.count_documents(filter_path)
     print("{} status check".format(npath))
